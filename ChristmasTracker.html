@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>There are X days until Christmas!</title>
+
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0px;
+			}
+			#main {
+				display: flex;
+				background-color: red;
+				height: 100%;
+			}
+
+			#text {
+				width: 70%;
+				font-family: "Verdana";
+				font-weight: 900;
+				font-size: 3em;
+				text-align: center;
+				margin: auto;
+				word-break: break-word;
+			}
+		</style>
+
+		<script>
+			const days = (a, b) =>{
+			    let diff = a.getTime() - b.getTime();
+			    let total = Math.ceil(diff / (1000 * 3600 * 24));
+			    return total;
+			}
+			// hahah
+			const excitement = d => (d <= 69)? r = "!".repeat(2**(5-Math.ceil(Math.log2(d/4)))) : "";
+
+
+			let today = new Date();
+			// new Date uses "monthIndex" which is just the month but -1
+			let christmas = new Date(today.getFullYear(), 11, 25);
+			if (days(christmas, today) < 0) christmas.setFullYear(today.getFullYear()+1);
+
+			function main() {
+				let daysUntilChristmas = days(christmas, today);
+
+				// main text
+				if (daysUntilChristmas === 0) {
+					document.getElementById("text").innerText = "MERRY CHRISTMAS!!!!!!!!!!!!!!!!!!\n I LOVE YOU ALL";
+				} else if (daysUntilChristmas === 1) {
+					document.getElementById("text").innerText = "THERE IS 1 DAY UNTIL CHRISTMAS!!!!!!!!!!!!!!!!!!!!!!!!!!"
+				} else {
+					document.getElementById("text").innerText = `There are ${daysUntilChristmas} days until Christmas${excitement(daysUntilChristmas)}`;
+				}
+
+				// background color
+				document.getElementById("main").style.backgroundColor = (daysUntilChristmas%2 === 0)? "#DC3D2A" : "#00B32C";
+
+				// title
+				if (daysUntilChristmas === 0) {
+					document.title = "CHRISTMAS DAY!!!";
+				} else if (daysUntilChristmas === 1) {
+					document.title = "CHRISTMAS EVE!!!";
+				} else {
+					document.title = `${daysUntilChristmas} days until Christmas!`;
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="main()">
+		<div id="main">
+			<div id="text">There are X days until Christmas!</div>
+		</div>
+	</body>
+</html>
